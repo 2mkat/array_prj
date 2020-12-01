@@ -130,38 +130,22 @@ Array Array::operator+(Array& c1){
 
 void Array::Shell_sort(){
 
-    std::vector<int> step = {(len_)/2};
-    for(int i = 1; step.at(i-1) != 1; ++i){
-        step.push_back(step.at(i - 1)/2);
-    }
-
     int j = 0,
         temp = 0,
-        k = 0,
-        s = 0,
-        b = 0;
-    for(auto i : step){
-        s = i;      //s = step
-        b = 0;
-        while(b < s){
-            j = b + s;
+        k = 0;
+    for(int i = int(len_)/2; i > 0 ; i /= 2){
+        for(int tp = 0; tp < i; tp++){
+            j = tp + i;
             while (j < len_){
                 temp = array_[j];
-                k = j - s; // position the first element
+                k = j - i; // position the first element
                 while (array_[k] > temp && k >= 0){
-                    std::swap(array_[k], array_[k + s]);
-                    k -= s;
+                    std::swap(array_[k], array_[k + i]);
+                    k -= i;
                 }
-
-                /*while (array_[k] > temp && k >= 0){  // по убыванию
-                    std::swap(array_[k], array_[k + s]);
-                    k -= s;
-                }*/
-
-                array_[k + s] = temp;
-                j += s;
+                array_[k + i] = temp;
+                j += i;
             }
-            b++;
         }
     }
 }
