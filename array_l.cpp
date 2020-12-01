@@ -166,33 +166,33 @@ void Array::Shell_sort(){
     }
 }
 void Array::Shaker_sort(){
-    int l = 0,
-        r = len_ - 1,
-        r1 = 0,
-        l1 = 0,
-        i = 0;
-
-    while (l<r){
-        i = l;
-        r1 = l;
-
-        while (i<r){
-            if (array_[i]>array_[i+1]){
-                swap(array_[i], array_[i + 1]);
-                r1 = i;
+   size_t left_point = 0,
+           right_point = (len_) - 1,
+           L = 0,
+           R = 0,
+           idx = 0;
+    while (left_point < right_point){
+        // проход слева-направо
+        R = left_point;
+        idx = left_point;
+        while (idx < right_point){
+            if (array_[idx] > array_[idx + 1]){
+                std::swap(array_[idx],array_[idx + 1]);
+                R = idx;
             }
-            i++;
+            idx++;
         }
-        r = r1;
 
-        while (l<i){
-            if (array_[i]<array_[i-1]){
-                swap(array_[i - 1], array_[i]);
-                l1 = i;
+        right_point = R;  //запоминаем место текущего обмена
+        // проход справа-налево
+        while (idx > left_point){
+            if(array_[idx] < array_[idx - 1]){
+                std::swap(array_[idx],array_[idx - 1]);
+                R = idx;
             }
-            i--;
+            idx--;
         }
-        l = l1;
+        left_point = L;     //запоминаем место текущего обмена
     }
 }
 void Array::Hoar_sort(int left_p, int right_p){
