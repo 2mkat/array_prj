@@ -23,8 +23,8 @@ public:
 
     void Shell_sort();
     void Shaker_sort();
-   // void Hoar_sort(int , int );
-   // void Bit_sort(int ,int ,int );
+    void Hoar_sort(int , int );
+    void Bit_sort(int ,int ,int );
 
     friend std::istream& operator>> (std::istream&, Array&);
     friend std::ostream& operator<< (std::ostream&, Array&);
