@@ -1,34 +1,31 @@
-
-#include <iostream>
-
 #pragma once
 
-using namespace std;
+#include <iostream>
 
 class Array{
 private:
     int *array_;
-    int len_;
+    std::size_t len_;
 
 public:
 
-    Array(int size = 1, int key = 1, int range = 10);
-    Array(const int*, int);
+    Array(std::size_t size = 1, std::size_t key = 1, int range = 10);
+    Array(const int*, std::size_t);
 
     Array(Array& );
     ~Array();
 
     Array& operator=(Array);
-    int& operator[](int);
+    int& operator[](std::size_t );
     bool Test() const;
     bool operator==(Array&) const;
     Array operator+(Array&);
 
     void Shell_sort();
     void Shaker_sort();
-    void Hoar_sort(int , int );
-    void Bit_sort(int ,int ,int );
+   // void Hoar_sort(int , int );
+   // void Bit_sort(int ,int ,int );
 
-    friend istream& operator>> (istream&, Array&);
-    friend ostream& operator<< (ostream&, Array&);
+    friend std::istream& operator>> (std::istream&, Array&);
+    friend std::ostream& operator<< (std::ostream&, Array&);
 };
