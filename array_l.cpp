@@ -177,7 +177,7 @@ void Array::Shell_sort(){
 void Array::Shaker_sort(){
 
    int left_point = 0,
-           right_point = (len_) - 1,
+           right_point = int(len_) - 1,
            temp1 = 0,
            temp2 = 0,
            idx = 0;
@@ -266,41 +266,39 @@ void Array::Bit_sort(int left_point, int right_point, int k){
 }
 
 void Array::Pyramidal_sort(){
-
-    int sh = 0; //смещение
-    bool b = false;
-    for (;;){
-        b = false;
-        for (int i = 0; i < len_; i++){
-            if (i * 2 + 2 + sh < len_){
-                if ((array_[i + sh] > array_[i * 2 + 1 + sh]) || (array_[i + sh] > array_[i * 2 + 2 + sh])){
-                    if (array_[i * 2 + 1 + sh] < array_[i * 2 + 2 + sh]){
-                        std::swap (array_[i + sh], array_[i * 2 + 1 + sh]);
-                        b = true;
-                    }
-                    else if (array_[i * 2 + 2 + sh] < array_[i * 2 + 1 + sh]) {
-                        std::swap(array_[i + sh], array_[i * 2 + 2 + sh]);
-                        b = true;
-                    }
-                }
-                //дополнительная проверка для последних двух элементов
-                if (array_[i * 2 + 2 + sh] < array_[i * 2 + 1 + sh]){
-                    std::swap(array_[i * 2 + 1 + sh], array_[i * 2 + 2 + sh]);
-                    b = true;
-                }
-            }
-            else if (i * 2 + 1 + sh < len_){
-                if (array_[i + sh] > array_[i * 2 + 1 + sh]){
-                    std::swap(array_[i + sh], array_[i * 2 + 1 + sh]);
-                    b = true;
-                }
-            }
-        }
-        if (!b) sh++; //смещение увеличивается, когда на текущем этапе сортировать больше нечего
-        if (sh + 2 == len_) {
-            break;
-        }
+    int size = this->len_;
+    //Heapify(*this, size);
+    for(int i = size - 1; i >= 0; --i){
+        Sift(*this, i + 1);
+        std::swap(array_[0], array_[i]);
     }
+}
+
+Array Array::Sift(Array &a, int size){
+    int mid = (size - 1) / 2;
+    bool conditinal1;
+    bool conditinal2;
+    for(mid; mid >= 0; --mid){
+        int i = mid;
+        do{
+            int currRoot = i;
+            int l = 2*i + 1;
+            int r = 2*i + 2;
+            if(l < size && a[l] > a[i]) {
+                i = l;
+            }
+            if(r < size && a[r] > a[i]) {
+                i = r;
+            }
+
+            if(i != currRoot) {
+                std::swap(a[currRoot], a[i]);
+            }
+            conditinal1 = (a[i] < a[2 * i + 1] && 2 * i + 1 < size);
+            conditinal2 = (a[i] < a[2 * i + 2] && 2 * i + 2 < size);
+        } while(conditinal1 || conditinal2);
+    }
+    return a;
 }
 
 std::istream& operator>>(std::istream& in, Array& c1){
