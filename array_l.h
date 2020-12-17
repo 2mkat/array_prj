@@ -29,6 +29,7 @@ public:
     void Hoar_sort(int , int );
     void Bit_sort(int ,int ,int );
     void Pyramidal_sort();
+    Array Sift(Array&, int);
 
     friend std::istream& operator>> (std::istream&, Array&);
     friend std::ostream& operator<< (std::ostream&, Array&);
